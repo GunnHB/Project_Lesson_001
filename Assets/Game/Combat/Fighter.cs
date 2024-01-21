@@ -16,11 +16,13 @@ namespace RPG.Combat
         private Transform _target;
         private Mover _mover;
         private ActionScheduler _scheduler;
+        private Animator _animator;
 
         private void Awake()
         {
             _scheduler = GetComponent<ActionScheduler>();
             _mover = GetComponent<Mover>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -30,10 +32,18 @@ namespace RPG.Combat
                 var remainDistance = Vector3.Distance(transform.position, _target.position);
 
                 if (remainDistance <= _weaponRange)
+                {
                     _mover.Cancel();
+                    AttackBehaviour();
+                }
                 else
                     _mover.MoveTo(_target.position);
             }
+        }
+
+        private void AttackBehaviour()
+        {
+            _animator.SetTrigger("attack");
         }
 
         public void Attack(CombatTarget target)
@@ -45,6 +55,12 @@ namespace RPG.Combat
         public void Cancel()
         {
             _target = null;
+        }
+
+        // Animation Event
+        void Hit()
+        {
+
         }
     }
 }
