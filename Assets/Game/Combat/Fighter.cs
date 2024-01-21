@@ -13,10 +13,15 @@ namespace RPG.Combat
         [SerializeField]
         private float _weaponRange = 2f;
 
+        [SerializeField]
+        private float _timeBetweenAttacks = 1f;
+
         private Transform _target;
         private Mover _mover;
         private ActionScheduler _scheduler;
         private Animator _animator;
+
+        private float _timeSinceLastAttack = 0f;
 
         private void Awake()
         {
@@ -27,6 +32,8 @@ namespace RPG.Combat
 
         private void Update()
         {
+            _timeSinceLastAttack += Time.deltaTime;
+
             if (_target != null)
             {
                 var remainDistance = Vector3.Distance(transform.position, _target.position);
@@ -43,7 +50,11 @@ namespace RPG.Combat
 
         private void AttackBehaviour()
         {
-            _animator.SetTrigger("attack");
+            if (_timeSinceLastAttack >= _timeBetweenAttacks)
+            {
+                _animator.SetTrigger("attack");
+                _timeSinceLastAttack = 0f;
+            }
         }
 
         public void Attack(CombatTarget target)
