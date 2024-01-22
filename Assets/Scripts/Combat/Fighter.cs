@@ -17,7 +17,7 @@ namespace RPG.Combat
         [SerializeField]
         private float _weaponDamage = 5f;
 
-        private Transform _target;
+        private Health _target;
         private Mover _mover;
         private ActionScheduler _scheduler;
         private Animator _animator;
@@ -38,7 +38,10 @@ namespace RPG.Combat
 
             if (_target != null)
             {
-                var remainDistance = Vector3.Distance(transform.position, _target.position);
+                if (_target.IsDead)
+                    return;
+
+                var remainDistance = Vector3.Distance(transform.position, _target.transform.position);
 
                 if (remainDistance <= _weaponRange)
                 {
@@ -46,12 +49,14 @@ namespace RPG.Combat
                     AttackBehaviour();
                 }
                 else
-                    _mover.MoveTo(_target.position);
+                    _mover.MoveTo(_target.transform.position);
             }
         }
 
         private void AttackBehaviour()
         {
+            transform.LookAt(_target.transform);
+
             if (_timeSinceLastAttack >= _timeBetweenAttacks)
             {
                 // this will trigger the Hit() event
@@ -73,11 +78,14 @@ namespace RPG.Combat
         public void Attack(CombatTarget target)
         {
             _scheduler.StartAction(this);
-            _target = target.transform;
+
+            if (target.TryGetComponent(out Health targetHealth))
+                _target = targetHealth;
         }
 
         public void Cancel()
         {
+            _animator.SetTrigger("stopAttack");
             _target = null;
         }
     }
