@@ -18,14 +18,18 @@ namespace RPG.Movement
         private Animator _animator;
 
         private ActionScheduler _scheduler;
+        private Health _health;
 
         private void Awake()
         {
             _scheduler = GetComponent<ActionScheduler>();
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
+            _agent.enabled = !_health.IsDead;
+
             UpdateAnimator();
         }
 

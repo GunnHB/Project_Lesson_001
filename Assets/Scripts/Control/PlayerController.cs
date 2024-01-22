@@ -5,6 +5,7 @@ using UnityEngine;
 
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control
 {
@@ -12,15 +13,20 @@ namespace RPG.Control
     {
         private Mover _mover;
         private Fighter _fighter;
+        private Health _health;
 
         private void Awake()
         {
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();
+            _health = GetComponent<Health>();
         }
 
         private void Update()
         {
+            if (_health.IsDead)
+                return;
+
             if (InteractWithCombat())
                 return;
 
@@ -36,8 +42,11 @@ namespace RPG.Control
             {
                 if (item.transform.TryGetComponent(out CombatTarget target))
                 {
+                    if (!_fighter.CanAttack(target.gameObject))
+                        continue;
+
                     if (Input.GetMouseButtonDown(0))
-                        _fighter.Attack(target);
+                        _fighter.Attack(target.gameObject);
 
                     return true;
                 }

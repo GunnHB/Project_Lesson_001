@@ -23,7 +23,8 @@ namespace RPG.Combat
         private Animator _animator;
         private Health _enemyHealth;
 
-        private float _timeSinceLastAttack = 0f;
+        // 공격이 시작되자마자 바로 실행되도록
+        private float _timeSinceLastAttack = Mathf.Infinity;
 
         private void Awake()
         {
@@ -59,23 +60,39 @@ namespace RPG.Combat
 
             if (_timeSinceLastAttack >= _timeBetweenAttacks)
             {
-                // this will trigger the Hit() event
-                _animator.SetTrigger("attack");
+                TriggerAttack();
                 _timeSinceLastAttack = 0f;
             }
+        }
+
+        private void TriggerAttack()
+        {
+            // this will trigger the Hit() event
+            _animator.ResetTrigger("stopAttack");
+            _animator.SetTrigger("attack");
+        }
+
+        public bool CanAttack(GameObject target)
+        {
+            if (target == null)
+                return false;
+
+            Health targetHealth = target.GetComponent<Health>();
+
+            return targetHealth != null && !targetHealth.IsDead;
         }
 
         // Animation Event
         void Hit()
         {
-            if (_target != null)
-            {
-                _enemyHealth = _target.GetComponent<Health>();
-                _enemyHealth.TakeDamage(_weaponDamage);
-            }
+            if (_target == null)
+                return;
+
+            _enemyHealth = _target.GetComponent<Health>();
+            _enemyHealth.TakeDamage(_weaponDamage);
         }
 
-        public void Attack(CombatTarget target)
+        public void Attack(GameObject target)
         {
             _scheduler.StartAction(this);
 
@@ -85,8 +102,14 @@ namespace RPG.Combat
 
         public void Cancel()
         {
-            _animator.SetTrigger("stopAttack");
+            StopAttack();
             _target = null;
+        }
+
+        private void StopAttack()
+        {
+            _animator.ResetTrigger("attack");
+            _animator.SetTrigger("stopAttack");
         }
     }
 }
