@@ -50,7 +50,7 @@ namespace RPG.Combat
                     AttackBehaviour();
                 }
                 else
-                    _mover.MoveTo(_target.transform.position);
+                    _mover.MoveTo(_target.transform.position, 1f);
             }
         }
 
