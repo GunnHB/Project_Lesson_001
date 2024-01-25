@@ -2306,19 +2306,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 17.73
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2326,7 +2326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2338,7 +2338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2371,6 +2371,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba3deb842904fd48be52446961d2872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &1713774995
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5062218229266266182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &5108499259599165530 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5361973868821244474, guid: bd8ccaf1953283b4f9663a1eb473e902, type: 3}

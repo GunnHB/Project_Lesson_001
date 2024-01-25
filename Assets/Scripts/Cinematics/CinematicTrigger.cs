@@ -25,10 +25,5 @@ namespace RPG.Cinematics
                 _alreadyTriggered = true;
             }
         }
-
-        private void DisableControl(PlayableDirector director)
-        {
-
-        }
     }
 }
