@@ -6,10 +6,11 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField]
         private NavMeshAgent _agent;
@@ -59,6 +60,23 @@ namespace RPG.Movement
             float speed = localVelocity.z;
 
             _animator.SetFloat("ForwardSpeed", speed);
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            var position = state as SerializableVector3;
+
+            if (state == null)
+                Debug.Log("position is null!!");
+
+            _agent.enabled = false;
+            transform.position = position.ToVector();
+            _agent.enabled = false;
         }
     }
 
